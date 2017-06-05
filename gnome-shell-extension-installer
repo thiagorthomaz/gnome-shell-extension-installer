@@ -93,7 +93,7 @@ download_version() {
       fi; } ||
     echo "[$EXTENSION_NAME] New version available"; }
   echo "[$EXTENSION_NAME] Downloading extension"
-  if curl $DOWNLOAD_PARAMETERS -o "$TMP_DIR/shell-$SELECTED_VERSION-extension-install.$EXTENSION_ID.zip" \
+  if curl $DOWNLOAD_PARAMETERS -k -o "$TMP_DIR/shell-$SELECTED_VERSION-extension-install.$EXTENSION_ID.zip" \
           "$EXTENSIONS_SITE/download-extension/$EXTENSION_UUID.shell-extension.zip?version_tag=$DOWNLOAD_TARGET"
   then
     return 0
@@ -172,7 +172,7 @@ download_info() {
   unset EXTENSION_INFO EXTENSIONS_QUERY EXTENSION_COMMENTS
   PAGES=-1
   TOTAL=-1
-  EXTENSION_INFO=$( curl $DOWNLOAD_PARAMETERS "$EXTENSIONS_SITE$1" )
+  EXTENSION_INFO=$( curl -k $DOWNLOAD_PARAMETERS "$EXTENSIONS_SITE$1" )
   case "$?" in
     0)
       if [ "$( echo $EXTENSION_INFO | grep name )" ]; then
